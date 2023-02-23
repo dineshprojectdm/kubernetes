@@ -1,0 +1,88 @@
+Installation video - [https://www.youtube.com/watch?v=mQW3u0bm3VE&t=4s]
+
+This will work only in Amazon Linux
+`````````````````````````````````````
+
+
+** Installing Docker [https://docs.docker.com/engine/install/ubuntu/]
+=====================================================================================
+>> Set host name first and entry in vi /etc/hosts
+
+# yum install docker -y
+# systemctl enable docker
+# systemctl restart docker
+# systemctl status docker
+
+# free -m [Disable]
+# sestatus [It must be in Disable,  if enable then disable]
+
+
+# docker run hello-world
+
+======================================================================================
+
+
+** Installing - kubeadm, kubelet, kubectl, kubernetes-cni 
+```````````````````````````````````````````````````````````
+
+Follow as per procedure [ Debian, Redhat]
+
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+
+>> Note : # Set SELinux in permissive mode (effectively disabling it)
+
+>> No need to set SELinux, Because we already disabled it. if not then follow the steps 
+
+# systemctl enable kubelet
+
+=======================================================================================
+
+** Master - Node - JOIN
+````````````````````````
+
+# kubeadm init
+
+>> Now you will get join token [Do the below steps, But follow on screen]
+>> To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+****************************************************************************************
+
+*** Calico plugin install - For Node get ready Status
+`````````````````````````````````````````````````````
+https://docs.tigera.io/calico/3.25/getting-started/kubernetes/self-managed-onprem/onpremises
+
+
+# curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml -O
+# kubectl apply -f calico.yaml
+
+
+ -----------------THE END------------------
+===================================================================
+
+
+
+Troubel Shooting
+================
+
+
+** CRI - ERROR 
+---------------
+
+https://k21academy.com/docker-kubernetes/container-runtime-is-not-running/
+
+$ rm /etc/containerd/config.toml
+$ systemctl restart containerd
+$ kubeadm init 
+
+- Connection Refused - Error
+-----------------------------
+
+systemctl daemon-reload
+systemctl restart docker
+systemctl restart kubelet
