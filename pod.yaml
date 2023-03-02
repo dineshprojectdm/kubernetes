@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginxhdfc-pod
+  labels:
+    app: hdfc
+spec:
+  containers:
+    - name: nginxhdfc-container
+      image: nginx
+      ports:
+        - containerPort: 80
