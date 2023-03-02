@@ -1,0 +1,25 @@
+# kubectl apply  -f   deploy.yaml 
+
+# kubectl get deployment -o wide 
+
+# kubectl get pods -o wide 
+
+# kubectl get svc -o wide 
+
+
+
+# kubectl describe deployment  "deploymentname"
+
+# kubectl describe pods  "podname"
+
+# kubectl describe svc "servicename"
+
+
+
+# kubectl delete deployment  "deploymentname"
+
+# kubectl delete pods  "podname"
+
+# kubectl delete svc "servicename"
+
+
